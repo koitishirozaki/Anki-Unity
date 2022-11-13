@@ -15,17 +15,41 @@ public class CardDisplayer : MonoBehaviour
     string _question;
     string _answer;
 
-    void Start()
+    public bool isSelected = false;
+
+    public void InitializeCard(string question, string answer)
     {
         rb = GetComponent<Rigidbody>();
+        SetQuestion(question);
+        SetAnswer(answer);
+
+        answerText.enabled = false;
     }
 
-    private void Update() {
-        if(rb != null && rb.IsSleeping())
+    private void Update()
+    {
+        if (rb != null && rb.IsSleeping())
         {
             rb.isKinematic = true;
         }
+
+        if(isSelected && Input.GetKeyDown(KeyCode.Space))
+        {
+            answerText.enabled = true;
+        }
     }
+
+    void SetQuestion(string quest)
+    {
+        _question = quest;
+        questionText.text = _question;
+    }
+    void SetAnswer(string ans)
+    {
+        _answer = ans;
+        answerText.text = _answer;
+    }
+
 
 
     /// <summary>
